@@ -33,21 +33,21 @@ export const Hero: React.FC<HeroProps> = ({ onGetQuote, onViewServices }) => {
           
           {/* Text Content */}
           <div className="flex-1 text-center lg:text-left">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green text-xs font-bold tracking-wider uppercase mb-6 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.1s' }}>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-green/10 text-brand-green text-xs font-bold tracking-wider uppercase mb-6 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
               <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse"></span>
               Serving Newark, NJ & Surroundings
             </div>
             
-            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.2s' }}>
+            <h1 className="text-4xl lg:text-6xl font-bold text-white leading-tight mb-6 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
               Professional Lawn Care <br/>
               <span className="text-brand-green">Without the Hassle.</span>
             </h1>
             
-            <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.3s' }}>
+            <p className="text-lg text-gray-300 mb-8 max-w-2xl mx-auto lg:mx-0 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
               Reliable local lawn care near you. Get your weekends back and enjoy a perfect lawn all season long. Fully insured and bonded.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.4s' }}>
+            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
               <Button onClick={onGetQuote} className="w-full sm:w-auto h-14">
                 Get a Free Estimate
               </Button>
@@ -63,7 +63,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetQuote, onViewServices }) => {
               </a>
             </div>
 
-            <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-gray-400 font-medium opacity-0 animate-fadeInUp" style={{ animationDelay: '0.5s' }}>
+            <div className="mt-8 flex flex-wrap justify-center lg:justify-start gap-6 text-sm text-gray-400 font-medium opacity-0 animate-fadeInUp" style={{ animationDelay: '0.7s' }}>
               <div className="flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-brand-green" />
                 <span>4.9/5 Average Rating</span>
@@ -76,7 +76,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetQuote, onViewServices }) => {
           </div>
 
           {/* Quick Quote Form Card (Desktop) */}
-          <div className="hidden lg:block w-full max-w-md bg-brand-card/90 backdrop-blur-sm p-8 rounded-2xl border border-white/10 shadow-2xl opacity-0 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
+          <div className="hidden lg:block w-full max-w-md bg-brand-card/90 backdrop-blur-sm p-8 rounded-2xl border border-white/10 shadow-2xl opacity-0 animate-fadeInUp" style={{ animationDelay: '0.8s' }}>
             <h3 className="text-2xl font-bold text-white mb-2">Get your quote in minutes</h3>
             <p className="text-gray-400 text-sm mb-6">Fill out the form below for a fast, free estimate.</p>
             

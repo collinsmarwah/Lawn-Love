@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Button } from './ui/Button';
 import { SERVICES } from '../constants';
 import { CheckCircle2, AlertCircle } from 'lucide-react';
@@ -30,6 +30,15 @@ export const LeadForm: React.FC = () => {
     details: ''
   });
   const [errors, setErrors] = useState<FormErrors>({});
+  
+  const successRef = useRef<HTMLDivElement>(null);
+
+  // Focus management for success state
+  useEffect(() => {
+    if (submitted && successRef.current) {
+      successRef.current.focus();
+    }
+  }, [submitted]);
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -74,6 +83,18 @@ export const LeadForm: React.FC = () => {
     }
 
     setErrors(newErrors);
+
+    // Focus first invalid input if validation fails
+    if (!isValid) {
+      setTimeout(() => {
+        const firstErrorKey = Object.keys(newErrors)[0];
+        const element = document.getElementById(firstErrorKey);
+        if (element) {
+          element.focus();
+        }
+      }, 0);
+    }
+
     return isValid;
   };
 
@@ -96,9 +117,15 @@ export const LeadForm: React.FC = () => {
 
   if (submitted) {
     return (
-      <div className="max-w-md mx-auto bg-brand-card border border-brand-green/20 p-8 rounded-2xl text-center">
+      <div 
+        ref={successRef}
+        tabIndex={-1}
+        role="status"
+        aria-live="polite"
+        className="max-w-md mx-auto bg-brand-card border border-brand-green/20 p-8 rounded-2xl text-center focus:outline-none"
+      >
         <div className="w-16 h-16 bg-brand-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
-          <CheckCircle2 className="w-8 h-8 text-brand-green" />
+          <CheckCircle2 className="w-8 h-8 text-brand-green" aria-hidden="true" />
         </div>
         <h3 className="text-2xl font-bold text-white mb-2">Request Received!</h3>
         <p className="text-gray-400">
@@ -126,7 +153,7 @@ export const LeadForm: React.FC = () => {
   }
 
   const getInputClassName = (error?: string) => `
-    w-full bg-brand-black border rounded-lg px-4 py-3 text-white transition-colors focus:outline-none
+    w-full bg-brand-black border rounded-lg px-4 py-3 text-white transition-colors focus:outline-none focus:ring-2 focus:ring-brand-green
     ${error 
       ? 'border-red-500 focus:border-red-500' 
       : 'border-white/10 focus:border-brand-green'
@@ -135,39 +162,47 @@ export const LeadForm: React.FC = () => {
 
   return (
     <div className="bg-brand-card border border-white/10 rounded-2xl p-6 md:p-10 shadow-xl">
-      <h2 className="text-3xl font-bold text-white mb-6">Get a Free Estimate</h2>
-      <form onSubmit={handleSubmit} className="space-y-6" noValidate>
+      <h2 className="text-3xl font-bold text-white mb-6" id="form-title">Get a Free Estimate</h2>
+      <form onSubmit={handleSubmit} className="space-y-6" noValidate aria-labelledby="form-title">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-400">Full Name</label>
+            <label htmlFor="name" className="text-sm font-medium text-gray-400">Full Name</label>
             <input 
+              id="name"
               name="name"
               type="text" 
               value={formData.name}
               onChange={handleChange}
               className={getInputClassName(errors.name)}
               placeholder="John Doe"
+              aria-invalid={!!errors.name}
+              aria-describedby={errors.name ? "name-error" : undefined}
+              aria-required="true"
             />
             {errors.name && (
-              <div className="flex items-center gap-1.5 text-red-400 text-xs mt-1 animate-fadeIn">
-                <AlertCircle className="w-3 h-3" />
+              <div id="name-error" role="alert" className="flex items-center gap-1.5 text-red-400 text-xs mt-1 animate-fadeIn">
+                <AlertCircle className="w-3 h-3" aria-hidden="true" />
                 <span>{errors.name}</span>
               </div>
             )}
           </div>
           <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-400">Phone Number</label>
+            <label htmlFor="phone" className="text-sm font-medium text-gray-400">Phone Number</label>
             <input 
+              id="phone"
               name="phone"
               type="tel" 
               value={formData.phone}
               onChange={handleChange}
               className={getInputClassName(errors.phone)}
               placeholder="(973) 555-0123"
+              aria-invalid={!!errors.phone}
+              aria-describedby={errors.phone ? "phone-error" : undefined}
+              aria-required="true"
             />
             {errors.phone && (
-              <div className="flex items-center gap-1.5 text-red-400 text-xs mt-1 animate-fadeIn">
-                <AlertCircle className="w-3 h-3" />
+              <div id="phone-error" role="alert" className="flex items-center gap-1.5 text-red-400 text-xs mt-1 animate-fadeIn">
+                <AlertCircle className="w-3 h-3" aria-hidden="true" />
                 <span>{errors.phone}</span>
               </div>
             )}
@@ -175,48 +210,57 @@ export const LeadForm: React.FC = () => {
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-400">Email Address</label>
+          <label htmlFor="email" className="text-sm font-medium text-gray-400">Email Address</label>
           <input 
+            id="email"
             name="email"
             type="email" 
             value={formData.email}
             onChange={handleChange}
             className={getInputClassName(errors.email)}
             placeholder="john@example.com"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "email-error" : undefined}
+            aria-required="true"
           />
           {errors.email && (
-            <div className="flex items-center gap-1.5 text-red-400 text-xs mt-1 animate-fadeIn">
-              <AlertCircle className="w-3 h-3" />
+            <div id="email-error" role="alert" className="flex items-center gap-1.5 text-red-400 text-xs mt-1 animate-fadeIn">
+              <AlertCircle className="w-3 h-3" aria-hidden="true" />
               <span>{errors.email}</span>
             </div>
           )}
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-400">Property Address</label>
+          <label htmlFor="address" className="text-sm font-medium text-gray-400">Property Address</label>
           <input 
+            id="address"
             name="address"
             type="text" 
             value={formData.address}
             onChange={handleChange}
             className={getInputClassName(errors.address)}
             placeholder="123 Example St, Newark, NJ"
+            aria-invalid={!!errors.address}
+            aria-describedby={errors.address ? "address-error" : undefined}
+            aria-required="true"
           />
           {errors.address && (
-            <div className="flex items-center gap-1.5 text-red-400 text-xs mt-1 animate-fadeIn">
-              <AlertCircle className="w-3 h-3" />
+            <div id="address-error" role="alert" className="flex items-center gap-1.5 text-red-400 text-xs mt-1 animate-fadeIn">
+              <AlertCircle className="w-3 h-3" aria-hidden="true" />
               <span>{errors.address}</span>
             </div>
           )}
         </div>
 
         <div className="space-y-2">
-          <label className="text-sm font-medium text-gray-400">Service Needed</label>
+          <label htmlFor="service" className="text-sm font-medium text-gray-400">Service Needed</label>
           <select 
+            id="service"
             name="service"
             value={formData.service}
             onChange={handleChange}
-            className="w-full bg-brand-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-green focus:outline-none transition-colors appearance-none"
+            className="w-full bg-brand-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-green focus:outline-none transition-colors appearance-none focus:ring-2 focus:ring-brand-green"
           >
             {SERVICES.map(s => (
               <option key={s.id} value={s.id}>{s.title}</option>
@@ -226,13 +270,14 @@ export const LeadForm: React.FC = () => {
         </div>
 
         <div className="space-y-2">
-            <label className="text-sm font-medium text-gray-400">Additional Details (Optional)</label>
+            <label htmlFor="details" className="text-sm font-medium text-gray-400">Additional Details (Optional)</label>
             <textarea 
+              id="details"
               name="details"
               value={formData.details}
               onChange={handleChange}
               rows={3}
-              className="w-full bg-brand-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-green focus:outline-none transition-colors resize-y min-h-[5rem]"
+              className="w-full bg-brand-black border border-white/10 rounded-lg px-4 py-3 text-white focus:border-brand-green focus:outline-none transition-colors resize-y min-h-[5rem] focus:ring-2 focus:ring-brand-green"
               placeholder="Tell us about your lawn needs..."
             />
         </div>

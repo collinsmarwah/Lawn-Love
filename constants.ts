@@ -18,7 +18,8 @@ export const COMPANY_INFO = {
   phone: "(973) 718-5114",
   phoneRaw: "9737185114",
   email: "hello@lawnlovenewark.com",
-  address: "123 Broad St, Newark, NJ 07102"
+  address: "123 Broad St, Newark, NJ 07102",
+  facebook: "https://www.facebook.com/lawnlove"
 };
 
 export const SERVICES: Service[] = [
