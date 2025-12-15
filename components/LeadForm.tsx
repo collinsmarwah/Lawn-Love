@@ -19,19 +19,41 @@ interface FormErrors {
   address?: string;
 }
 
-export const LeadForm: React.FC = () => {
+interface LeadFormProps {
+  initialName?: string;
+  initialAddress?: string;
+  initialService?: string;
+}
+
+export const LeadForm: React.FC<LeadFormProps> = ({ 
+  initialName = '', 
+  initialAddress = '', 
+  initialService = '' 
+}) => {
   const [submitted, setSubmitted] = useState(false);
   const [formData, setFormData] = useState<FormData>({
-    name: '',
+    name: initialName,
     phone: '',
     email: '',
-    address: '',
-    service: SERVICES[0]?.id || 'mowing',
+    address: initialAddress,
+    service: initialService || SERVICES[0]?.id || 'mowing',
     details: ''
   });
   const [errors, setErrors] = useState<FormErrors>({});
   
   const successRef = useRef<HTMLDivElement>(null);
+
+  // Update form data if props change (e.g. re-navigating with new selection)
+  useEffect(() => {
+    if (initialName || initialAddress || initialService) {
+      setFormData(prev => ({
+        ...prev,
+        name: initialName || prev.name,
+        address: initialAddress || prev.address,
+        service: initialService || prev.service
+      }));
+    }
+  }, [initialName, initialAddress, initialService]);
 
   // Focus management for success state
   useEffect(() => {

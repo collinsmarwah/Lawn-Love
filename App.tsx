@@ -125,6 +125,7 @@ const SectionTitle = ({ title, subtitle }: { title: string, subtitle?: string })
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<PageView>('home');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [quotePrefill, setQuotePrefill] = useState<{name?: string, service?: string, address?: string} | null>(null);
 
   // Scroll to top on page change
   useEffect(() => {
@@ -133,6 +134,11 @@ const App: React.FC = () => {
   }, [currentPage]);
 
   const navigateTo = (page: PageView) => setCurrentPage(page);
+
+  const handleGetQuote = (data?: {name?: string, service?: string, address?: string}) => {
+    setQuotePrefill(data || null);
+    navigateTo('estimate');
+  };
 
   const renderContent = () => {
     switch(currentPage) {
@@ -145,7 +151,7 @@ const App: React.FC = () => {
                 <ServiceCard 
                   key={service.id} 
                   service={service} 
-                  onClick={() => navigateTo('estimate')} 
+                  onClick={() => handleGetQuote({ service: service.id })} 
                 />
               ))}
             </div>
@@ -179,7 +185,7 @@ const App: React.FC = () => {
                     <div className="font-bold text-white">Locally Owned</div>
                   </div>
                 </div>
-                <Button onClick={() => navigateTo('estimate')}>Get a Free Quote</Button>
+                <Button onClick={() => handleGetQuote()}>Get a Free Quote</Button>
               </div>
             </div>
           </div>
@@ -222,7 +228,11 @@ const App: React.FC = () => {
           <div className="pt-32 pb-20 container mx-auto px-4">
             <div className="grid lg:grid-cols-2 gap-12">
               <div className="order-2 lg:order-1">
-                 <LeadForm />
+                 <LeadForm 
+                   initialName={quotePrefill?.name}
+                   initialAddress={quotePrefill?.address}
+                   initialService={quotePrefill?.service}
+                 />
               </div>
               <div className="order-1 lg:order-2 space-y-8">
                 <div>
@@ -287,7 +297,7 @@ const App: React.FC = () => {
         return (
           <>
             <Hero 
-              onGetQuote={() => navigateTo('estimate')} 
+              onGetQuote={handleGetQuote} 
               onViewServices={() => navigateTo('services')}
             />
             
@@ -321,7 +331,7 @@ const App: React.FC = () => {
                   <ServiceCard 
                     key={service.id} 
                     service={service} 
-                    onClick={() => navigateTo('estimate')} 
+                    onClick={() => handleGetQuote({ service: service.id })} 
                   />
                 ))}
               </div>
@@ -417,7 +427,7 @@ const App: React.FC = () => {
                     </div>
                     
                     <div className="mt-10">
-                      <Button onClick={() => navigateTo('estimate')} className="px-8">
+                      <Button onClick={() => handleGetQuote()} className="px-8">
                         Get Started Today
                       </Button>
                     </div>
@@ -516,7 +526,7 @@ const App: React.FC = () => {
                 {link.label}
               </button>
             ))}
-            <Button onClick={() => navigateTo('estimate')} className="ml-4">
+            <Button onClick={() => handleGetQuote()} className="ml-4">
               {COMPANY_INFO.phone}
             </Button>
           </div>
@@ -558,7 +568,7 @@ const App: React.FC = () => {
             <div className="p-4 mt-2">
               <Button 
                 onClick={() => {
-                  navigateTo('estimate');
+                  handleGetQuote();
                   setMobileMenuOpen(false);
                 }} 
                 fullWidth 

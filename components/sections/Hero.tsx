@@ -4,16 +4,22 @@ import { Phone, CheckCircle2 } from 'lucide-react';
 import { COMPANY_INFO } from '../../constants';
 
 interface HeroProps {
-  onGetQuote: () => void;
+  onGetQuote: (data?: { name?: string; address?: string; service?: string }) => void;
   onViewServices: () => void;
 }
 
 export const Hero: React.FC<HeroProps> = ({ onGetQuote, onViewServices }) => {
+  const [name, setName] = useState('');
   const [address, setAddress] = useState('');
+  const [service, setService] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onGetQuote();
+    onGetQuote({ 
+      name, 
+      address, 
+      service: service || undefined 
+    });
   };
 
   return (
@@ -48,7 +54,7 @@ export const Hero: React.FC<HeroProps> = ({ onGetQuote, onViewServices }) => {
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 opacity-0 animate-fadeInUp" style={{ animationDelay: '0.6s' }}>
-              <Button onClick={onGetQuote} className="w-full sm:w-auto h-14">
+              <Button onClick={() => onGetQuote()} className="w-full sm:w-auto h-14">
                 Get a Free Estimate
               </Button>
               <Button onClick={onViewServices} variant="outline" className="w-full sm:w-auto h-14">
@@ -83,7 +89,9 @@ export const Hero: React.FC<HeroProps> = ({ onGetQuote, onViewServices }) => {
             <form onSubmit={handleSubmit} className="space-y-4">
               <input 
                 type="text" 
-                placeholder="Full Name" 
+                placeholder="Full Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)} 
                 className="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-brand-green focus:outline-none focus:ring-1 focus:ring-brand-green transition-all"
               />
               <input 
@@ -93,8 +101,12 @@ export const Hero: React.FC<HeroProps> = ({ onGetQuote, onViewServices }) => {
                 onChange={(e) => setAddress(e.target.value)}
                 className="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-white placeholder-gray-500 focus:border-brand-green focus:outline-none focus:ring-1 focus:ring-brand-green transition-all"
               />
-              <select className="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-gray-300 focus:border-brand-green focus:outline-none focus:ring-1 focus:ring-brand-green transition-all appearance-none">
-                <option value="" disabled selected>Select Service Needed</option>
+              <select 
+                value={service}
+                onChange={(e) => setService(e.target.value)}
+                className="w-full bg-brand-dark border border-white/10 rounded-lg px-4 py-3 text-gray-300 focus:border-brand-green focus:outline-none focus:ring-1 focus:ring-brand-green transition-all appearance-none"
+              >
+                <option value="" disabled>Select Service Needed</option>
                 <option value="mowing">Lawn Mowing</option>
                 <option value="cleanup">Yard Clean Up</option>
                 <option value="other">Other</option>
