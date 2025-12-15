@@ -331,49 +331,98 @@ const App: React.FC = () => {
             </section>
 
             {/* Why Choose Us Section */}
-            <section className="relative py-24 overflow-hidden">
-              {/* Background accent */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full max-w-7xl opacity-20 pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-brand-green/30 rounded-full blur-[128px]"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-brand-green/20 rounded-full blur-[128px]"></div>
-              </div>
-
+            <section className="relative py-24 overflow-hidden bg-brand-card/20"> 
               <div className="container relative mx-auto px-4">
-                <SectionTitle title="Why Choose Lawn Love Newark" subtitle="The Local Advantage" />
-                
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
-                  {/* Card 1 */}
-                  <div className="bg-gradient-to-br from-brand-card to-brand-black p-8 rounded-3xl border border-white/10 hover:border-brand-green/50 transition-all duration-300 group hover:shadow-2xl hover:shadow-brand-green/10">
-                     <div className="w-16 h-16 bg-brand-green/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <MapPin className="w-8 h-8 text-brand-green" />
-                     </div>
-                     <h3 className="text-2xl font-bold text-white mb-4">Local Expertise</h3>
-                     <p className="text-gray-400 leading-relaxed">
-                       We aren't a big chain. We're Newark locals who understand the specific soil types and climate of Essex County. We know exactly what your lawn needs to thrive here.
-                     </p>
+                <div className="grid lg:grid-cols-2 gap-16 items-center">
+                  
+                  {/* Image Column */}
+                  <div className="relative order-2 lg:order-1">
+                    <div className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10">
+                      <img 
+                        src="https://lawnlove.com/cdn-cgi/image/format=auto/https%3A%2F%2Fcdn.lawnlove.com%2Fassets%2Fblocks%2Fcrew-smiles.jpg" 
+                        alt="Lawn Love Crew" 
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Overlay gradient */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-black/60 to-transparent"></div>
+                      
+                      {/* Floating badge */}
+                      <div className="absolute bottom-6 left-6 bg-brand-black/90 backdrop-blur-md p-4 rounded-xl border border-brand-green/20 shadow-lg max-w-xs">
+                        <div className="flex items-center gap-3">
+                           <div className="w-10 h-10 bg-brand-green rounded-full flex items-center justify-center text-brand-black font-bold">
+                             <CheckCircle className="w-6 h-6" />
+                           </div>
+                           <div>
+                             <p className="text-white font-bold text-sm">Vetted Professionals</p>
+                             <p className="text-brand-green text-xs">Background Checked</p>
+                           </div>
+                        </div>
+                      </div>
+                    </div>
+                    {/* Decorative back blob */}
+                    <div className="absolute -top-10 -left-10 w-full h-full border-2 border-brand-green/20 rounded-3xl -z-10 translate-x-4 translate-y-4"></div>
                   </div>
 
-                  {/* Card 2 */}
-                  <div className="bg-gradient-to-br from-brand-card to-brand-black p-8 rounded-3xl border border-white/10 hover:border-brand-green/50 transition-all duration-300 group hover:shadow-2xl hover:shadow-brand-green/10">
-                     <div className="w-16 h-16 bg-brand-green/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <ShieldCheck className="w-8 h-8 text-brand-green" />
-                     </div>
-                     <h3 className="text-2xl font-bold text-white mb-4">Satisfaction Guarantee</h3>
-                     <p className="text-gray-400 leading-relaxed">
-                       Your happiness is our priority. If you're not 100% satisfied with our service, we'll return to make it right free of charge. We stand behind every job we do.
-                     </p>
+                  {/* Content Column */}
+                  <div className="order-1 lg:order-2">
+                    <div className="mb-10">
+                      <span className="text-brand-green font-bold tracking-wider uppercase text-sm mb-2 block">
+                        The Local Advantage
+                      </span>
+                      <h2 className="text-3xl md:text-5xl font-bold text-white leading-tight">
+                        Why Choose Lawn Love Newark
+                      </h2>
+                      <div className="w-20 h-1 bg-brand-green mt-6 rounded-full"></div>
+                    </div>
+
+                    <div className="space-y-8">
+                       {/* Feature 1 */}
+                       <div className="flex gap-6 group">
+                         <div className="w-14 h-14 bg-brand-green/10 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-brand-green transition-colors duration-300">
+                            <MapPin className="w-7 h-7 text-brand-green group-hover:text-brand-black transition-colors" />
+                         </div>
+                         <div>
+                           <h3 className="text-xl font-bold text-white mb-2">Local Expertise</h3>
+                           <p className="text-gray-400 leading-relaxed">
+                             We aren't a big chain. We're Newark locals who understand the specific soil types and climate of Essex County.
+                           </p>
+                         </div>
+                       </div>
+
+                       {/* Feature 2 */}
+                       <div className="flex gap-6 group">
+                         <div className="w-14 h-14 bg-brand-green/10 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-brand-green transition-colors duration-300">
+                            <ShieldCheck className="w-7 h-7 text-brand-green group-hover:text-brand-black transition-colors" />
+                         </div>
+                         <div>
+                           <h3 className="text-xl font-bold text-white mb-2">Satisfaction Guarantee</h3>
+                           <p className="text-gray-400 leading-relaxed">
+                             Your happiness is our priority. If you're not 100% satisfied with our service, we'll return to make it right free of charge.
+                           </p>
+                         </div>
+                       </div>
+
+                       {/* Feature 3 */}
+                       <div className="flex gap-6 group">
+                         <div className="w-14 h-14 bg-brand-green/10 rounded-2xl flex items-center justify-center shrink-0 group-hover:bg-brand-green transition-colors duration-300">
+                            <Zap className="w-7 h-7 text-brand-green group-hover:text-brand-black transition-colors" />
+                         </div>
+                         <div>
+                           <h3 className="text-xl font-bold text-white mb-2">Fast & Reliable</h3>
+                           <p className="text-gray-400 leading-relaxed">
+                             We respect your time. Get lightning-fast quotes and rely on our team to show up on schedule.
+                           </p>
+                         </div>
+                       </div>
+                    </div>
+                    
+                    <div className="mt-10">
+                      <Button onClick={() => navigateTo('estimate')} className="px-8">
+                        Get Started Today
+                      </Button>
+                    </div>
                   </div>
 
-                  {/* Card 3 */}
-                  <div className="bg-gradient-to-br from-brand-card to-brand-black p-8 rounded-3xl border border-white/10 hover:border-brand-green/50 transition-all duration-300 group hover:shadow-2xl hover:shadow-brand-green/10">
-                     <div className="w-16 h-16 bg-brand-green/10 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                        <Zap className="w-8 h-8 text-brand-green" />
-                     </div>
-                     <h3 className="text-2xl font-bold text-white mb-4">Fast & Reliable</h3>
-                     <p className="text-gray-400 leading-relaxed">
-                       We respect your time. Get lightning-fast quotes and rely on our team to show up on schedule. No more waiting around or wondering if the landscaper is coming.
-                     </p>
-                  </div>
                 </div>
               </div>
             </section>
