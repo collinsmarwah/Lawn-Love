@@ -532,10 +532,10 @@ const App: React.FC = () => {
 
         {/* Mobile Nav Dropdown */}
         <div 
-          className={`md:hidden absolute top-20 left-0 right-0 bg-brand-card border-b border-white/10 shadow-2xl transition-all duration-300 ease-in-out origin-top ${
+          className={`md:hidden absolute top-20 left-0 right-0 bg-brand-card border-b border-white/10 shadow-2xl transition-all duration-400 ease-[cubic-bezier(0.33,1,0.68,1)] origin-top ${
             mobileMenuOpen 
-              ? 'opacity-100 translate-y-0 visible' 
-              : 'opacity-0 -translate-y-4 invisible pointer-events-none'
+              ? 'opacity-100 translate-y-0 pointer-events-auto' 
+              : 'opacity-0 -translate-y-5 pointer-events-none'
           }`}
         >
           <div className="flex flex-col p-4">
