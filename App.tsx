@@ -22,6 +22,7 @@ import { ServiceCard } from './components/sections/ServiceCard';
 import { StickyCall } from './components/StickyCall';
 import { LeadForm } from './components/LeadForm';
 import { ReviewsCarousel } from './components/sections/ReviewsCarousel';
+import { ChatAssistant } from './components/ChatAssistant';
 
 const GALLERY_IMAGES = [
   {
@@ -661,6 +662,9 @@ const App: React.FC = () => {
 
       {/* Mobile Sticky CTA */}
       <StickyCall />
+      
+      {/* AI Chat Assistant */}
+      <ChatAssistant />
     </div>
   );
 };
