@@ -3,13 +3,6 @@ import { MessageCircle, X, Send, Sparkles, User, Bot, Loader2 } from 'lucide-rea
 import { GoogleGenAI, Chat } from "@google/genai";
 import { COMPANY_INFO, SERVICES } from '../constants';
 
-// Declare process for the compiler since this runs in a Vite/Browser environment
-declare const process: {
-  env: {
-    API_KEY: string;
-  };
-};
-
 interface Message {
   role: 'user' | 'model';
   text: string;
@@ -36,7 +29,8 @@ export const ChatAssistant: React.FC = () => {
   const initChat = () => {
     if (!chatSessionRef.current) {
       try {
-        const apiKey = process.env.API_KEY;
+        // Use type casting to avoid TS error while adhering to process.env.API_KEY rule
+        const apiKey = (process.env as any).API_KEY;
         if (!apiKey) {
           console.error("API Key is missing");
           return;
@@ -95,20 +89,21 @@ export const ChatAssistant: React.FC = () => {
       
       if (chatSessionRef.current) {
         const response = await chatSessionRef.current.sendMessage({ message: userMessage });
-        // Use a local variable with an explicit string type to satisfy TypeScript's strict checking
-        const rawText = response.text;
-        const textResponse: string = typeof rawText === 'string' ? rawText : "I'm sorry, I couldn't generate a response. Please try again or contact us directly.";
+        // Explicitly handle the string | undefined return type from response.text
+        const textResponse: string = response.text || "I'm sorry, I couldn't generate a response. Please try again or contact us directly.";
         
-        setMessages(prev => {
-          const newMessage: Message = { role: 'model', text: textResponse };
-          return [...prev, newMessage];
-        });
+        const botMessage: Message = { role: 'model', text: textResponse };
+        setMessages((prev: Message[]) => [...prev, botMessage]);
       } else {
         throw new Error("Chat session not initialized");
       }
     } catch (error) {
       console.error("Error sending message:", error);
-      setMessages(prev => [...prev, { role: 'model', text: "I'm having trouble connecting right now. Please try calling us at " + COMPANY_INFO.phone }]);
+      const errorMessage: Message = { 
+        role: 'model', 
+        text: "I'm having trouble connecting right now. Please try calling us at " + COMPANY_INFO.phone 
+      };
+      setMessages((prev: Message[]) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
     }
