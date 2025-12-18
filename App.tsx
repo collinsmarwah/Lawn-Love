@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import { 
   Menu, 
@@ -28,34 +29,64 @@ import { ChatAssistant } from './components/ChatAssistant';
 
 const GALLERY_IMAGES = [
   {
-    url: "https://shopvalorfarms.com/cdn/shop/files/Triple-Shredded-Black-Mulch1.webp?v=1742858656&width=990",
-    title: "Mulch & Trim",
-    desc: "Complete flower bed revitalization in Ironbound."
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-280182.jpg",
+    title: "Precision Striping",
+    desc: "Clean, straight lines for a professional finish in the Ironbound district."
   },
   {
-    url: "https://cdn.prod.website-files.com/672fd9c725c3b0b9c3b44d4f/673f64cadde7e780d6bef91d_electric%20shrub%20pruning.jpg",
-    title: "Overgrown Cleanout",
-    desc: "Restored a neglected backyard to pristine condition."
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-259387.jpg",
+    title: "Flower Bed Refresh",
+    desc: "Complete weeding and edging for a pristine garden border."
   },
   {
-    url: "https://images.unsplash.com/photo-1558904541-efa843a96f01?auto=format&fit=crop&q=80&w=800",
-    title: "Lawn Mowing",
-    desc: "Regular maintenance keeping the green lush."
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-275380.jpg",
+    title: "Lush Greenery",
+    desc: "Regular maintenance results in a thick, healthy lawn near Branch Brook Park."
   },
   {
-    url: "https://www.nikuze.com/cleaning/images/services/gardening.jpg",
-    title: "Garden Care",
-    desc: "Professional weed management and planting."
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-275381.jpg",
+    title: "Edge Definition",
+    desc: "Sharp, clean driveway edges that make the property pop."
   },
   {
-    url: "https://plus.unsplash.com/premium_photo-1661411416827-4276cb8329e5?q=80&w=1184&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    title: "Turf Maintenance",
-    desc: "Expert fertilization and aeration results."
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-275382.jpg",
+    title: "Curbside Appeal",
+    desc: "Keeping Newark sidewalks looking neat and welcoming."
   },
   {
-    url: "https://proactivelandscaping.com/wp-content/uploads/fall-winter-cleanup-broken-arrow-01.jpg",
-    title: "Fall Cleanup",
-    desc: "Seasonal leaf removal and property tidying."
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-275383.jpg",
+    title: "Backyard Oasis",
+    desc: "Tailored mowing patterns to suit large family backyards."
+  },
+  {
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-275386.jpg",
+    title: "Fall Cleanliness",
+    desc: "Total debris removal after a windy New Jersey week."
+  },
+  {
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-255424.jpg",
+    title: "Garden Detailing",
+    desc: "Detailed maintenance for flower beds and shrubs."
+  },
+  {
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-280577.jpg",
+    title: "Corner Precision",
+    desc: "No blade of grass left untrimmed, even in tricky corners."
+  },
+  {
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-217024.jpg",
+    title: "Spring Revitalization",
+    desc: "Helping lawns wake up and grow strong in early April."
+  },
+  {
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-255432.jpg",
+    title: "Professional Trimming",
+    desc: "Expertly trimmed bushes that frame the home perfectly."
+  },
+  {
+    url: "https://lawnlove.com/cdn-cgi/image/width=400,height=300,dpr=1,fit=cover,gravity=center,quality=85,format=auto,onerror=redirect/https%3A%2F%2Flawnlove.com%2Fassets%2Fservice-photos%2Fservice-photo-212681.jpg",
+    title: "Turf Health",
+    desc: "Healthy roots and vibrant color from our fertilization program."
   }
 ];
 
@@ -186,6 +217,9 @@ const App: React.FC = () => {
                     <div className="bg-brand-green text-brand-black p-3 rounded-full scale-50 group-hover:scale-100 transition-transform">
                       <Maximize2 className="w-6 h-6" />
                     </div>
+                  </div>
+                  <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-brand-black/90 to-transparent">
+                    <p className="text-brand-green font-bold text-sm">{img.title}</p>
                   </div>
                 </div>
               ))}
