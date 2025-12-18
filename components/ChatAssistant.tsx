@@ -29,11 +29,16 @@ export const ChatAssistant: React.FC = () => {
   const initChat = () => {
     if (!chatSessionRef.current) {
       try {
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        const apiKey = process.env.API_KEY;
+        if (!apiKey) {
+          console.error("API Key is missing");
+          return;
+        }
+        const ai = new GoogleGenAI({ apiKey });
         const servicesList = SERVICES.map(s => `• ${s.title}: ${s.description}`).join('\n');
         
         chatSessionRef.current = ai.chats.create({
-          model: 'gemini-2.5-flash',
+          model: 'gemini-3-flash-preview',
           config: {
             systemInstruction: `You are a helpful, friendly, and professional AI assistant for Lawn Love, a lawn care business in Newark, NJ.
             
@@ -83,7 +88,8 @@ export const ChatAssistant: React.FC = () => {
       
       if (chatSessionRef.current) {
         const response = await chatSessionRef.current.sendMessage({ message: userMessage });
-        setMessages(prev => [...prev, { role: 'model', text: response.text }]);
+        const text = response.text ?? "I'm sorry, I couldn't generate a response. Please try again or contact us directly.";
+        setMessages(prev => [...prev, { role: 'model', text }]);
       } else {
         throw new Error("Chat session not initialized");
       }
