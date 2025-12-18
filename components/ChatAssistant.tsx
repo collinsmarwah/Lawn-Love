@@ -88,8 +88,9 @@ export const ChatAssistant: React.FC = () => {
       
       if (chatSessionRef.current) {
         const response = await chatSessionRef.current.sendMessage({ message: userMessage });
-        const text = response.text ?? "I'm sorry, I couldn't generate a response. Please try again or contact us directly.";
-        setMessages(prev => [...prev, { role: 'model', text }]);
+        // Handle undefined text explicitly for TypeScript
+        const textResponse: string = response.text ?? "I'm sorry, I couldn't generate a response. Please try again or contact us directly.";
+        setMessages(prev => [...prev, { role: 'model', text: textResponse }]);
       } else {
         throw new Error("Chat session not initialized");
       }
