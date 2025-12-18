@@ -442,7 +442,7 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="pt-8 border-t border-white/5 text-center text-sm text-gray-500">
-            <p>&copy; {new Date().getFullYear()} Lawn Love Newark. Hand-crafted in Essex County.</p>
+            <p>&copy; 2026 Lawn Love Newark. Hand-crafted in Essex County.</p>
           </div>
         </div>
       </footer>
