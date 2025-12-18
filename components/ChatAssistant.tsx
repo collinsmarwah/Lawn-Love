@@ -3,6 +3,13 @@ import { MessageCircle, X, Send, Sparkles, User, Bot, Loader2 } from 'lucide-rea
 import { GoogleGenAI, Chat } from "@google/genai";
 import { COMPANY_INFO, SERVICES } from '../constants';
 
+// Declare process for the compiler since this runs in a Vite/Browser environment
+declare const process: {
+  env: {
+    API_KEY: string;
+  };
+};
+
 interface Message {
   role: 'user' | 'model';
   text: string;
@@ -88,9 +95,14 @@ export const ChatAssistant: React.FC = () => {
       
       if (chatSessionRef.current) {
         const response = await chatSessionRef.current.sendMessage({ message: userMessage });
-        // Handle undefined text explicitly for TypeScript
-        const textResponse: string = response.text ?? "I'm sorry, I couldn't generate a response. Please try again or contact us directly.";
-        setMessages(prev => [...prev, { role: 'model', text: textResponse }]);
+        // Use a local variable with an explicit string type to satisfy TypeScript's strict checking
+        const rawText = response.text;
+        const textResponse: string = typeof rawText === 'string' ? rawText : "I'm sorry, I couldn't generate a response. Please try again or contact us directly.";
+        
+        setMessages(prev => {
+          const newMessage: Message = { role: 'model', text: textResponse };
+          return [...prev, newMessage];
+        });
       } else {
         throw new Error("Chat session not initialized");
       }
